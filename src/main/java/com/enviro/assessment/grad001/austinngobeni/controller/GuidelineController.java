@@ -1,6 +1,7 @@
 package com.enviro.assessment.grad001.austinngobeni.controller;
 
 import com.enviro.assessment.grad001.austinngobeni.model.Guidelines;
+import com.enviro.assessment.grad001.austinngobeni.model.RecyclingTips;
 import com.enviro.assessment.grad001.austinngobeni.repo.GuideLineRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,6 +74,7 @@ public class GuidelineController implements ControllerInterface<Guidelines>{
     @Override
     @PostMapping("/add")
     public ResponseEntity<Guidelines> addData(Guidelines requestBody) {
-        return null;
+        Guidelines newData = guideRepo.save(requestBody);
+        return ResponseEntity.ok(newData);
     }
 }
