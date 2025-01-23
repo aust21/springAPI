@@ -1,4 +1,4 @@
-# Recycling Tips API
+# Waste management API
 
 This project is a Spring Boot application designed to manage recycling tips, waste guidlines. The API provides functionality to add, update, retrieve, and delete data, RESTful endpoints.
 
