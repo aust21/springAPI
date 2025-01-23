@@ -13,5 +13,6 @@ public class WasteCategories {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String disposal;
 }
