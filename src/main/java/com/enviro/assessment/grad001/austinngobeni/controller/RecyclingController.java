@@ -33,7 +33,7 @@ public class RecyclingController implements ControllerInterface<RecyclingTips>{
     }
 
     @Override
-    @GetMapping("/get-data/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<RecyclingTips> getDataById(Long id) {
         Optional<RecyclingTips> data = recyclingRepo.findById(id);
 
@@ -44,7 +44,7 @@ public class RecyclingController implements ControllerInterface<RecyclingTips>{
     }
 
     @Override
-    @DeleteMapping("/delete-data/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteById(Long id) {
         Optional<RecyclingTips> data = recyclingRepo.findById(id);
 
@@ -56,7 +56,7 @@ public class RecyclingController implements ControllerInterface<RecyclingTips>{
     }
 
     @Override
-    @GetMapping("/getAllData")
+    @GetMapping("/get")
     public ResponseEntity<List<RecyclingTips>> getAllData() {
         List<RecyclingTips> data = new ArrayList<>();
         recyclingRepo.findAll().forEach(data::add);

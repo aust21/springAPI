@@ -33,7 +33,7 @@ public class CategoryController implements ControllerInterface<WasteCategories>{
     }
 
     @Override
-    @GetMapping("/get-data/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<WasteCategories> getDataById(@PathVariable Long id) {
         Optional<WasteCategories> data = categoryRepo.findById(id);
 
@@ -44,14 +44,14 @@ public class CategoryController implements ControllerInterface<WasteCategories>{
     }
 
     @Override
-    @DeleteMapping("/delete-data/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteById(@PathVariable Long id) {
         categoryRepo.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    @GetMapping("/getAllData")
+    @GetMapping("/get")
     public ResponseEntity<List<WasteCategories>> getAllData() {
         List<WasteCategories> data = new ArrayList<>();
         categoryRepo.findAll().forEach(data::add);
