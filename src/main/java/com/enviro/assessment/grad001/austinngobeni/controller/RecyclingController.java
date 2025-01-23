@@ -33,7 +33,12 @@ public class RecyclingController implements ControllerInterface<RecyclingTips>{
 
     @Override
     public ResponseEntity<RecyclingTips> getDataById(Long id) {
-        return null;
+        Optional<RecyclingTips> data = recyclingRepo.findById(id);
+
+        if (data.isPresent()) {
+            return new ResponseEntity<>(data.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Override
