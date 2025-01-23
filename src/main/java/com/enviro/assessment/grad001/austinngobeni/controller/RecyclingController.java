@@ -43,7 +43,13 @@ public class RecyclingController implements ControllerInterface<RecyclingTips>{
 
     @Override
     public ResponseEntity<HttpStatus> deleteById(Long id) {
-        return null;
+        Optional<RecyclingTips> data = recyclingRepo.findById(id);
+
+        if (data.isPresent()) {
+            recyclingRepo.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Override
