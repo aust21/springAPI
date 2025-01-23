@@ -35,7 +35,13 @@ public class GuidelineController implements ControllerInterface<Guidelines>{
     @Override
     @GetMapping("/get/{id}")
     public ResponseEntity<Guidelines> getDataById(Long id) {
-        return null;
+        Optional<Guidelines> data = guideRepo.findById(id);
+
+        if (data.isPresent()) {
+            return new ResponseEntity<>(data.get(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Override
