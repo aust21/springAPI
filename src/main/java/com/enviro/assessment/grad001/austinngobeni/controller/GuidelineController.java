@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +61,13 @@ public class GuidelineController implements ControllerInterface<Guidelines>{
     @Override
     @GetMapping("/get")
     public ResponseEntity<List<Guidelines>> getAllData() {
-        return null;
+        List<Guidelines> data = new ArrayList<>();
+        guideRepo.findAll().forEach(data::add);
+
+        if (data.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
     @Override
