@@ -47,7 +47,14 @@ public class GuidelineController implements ControllerInterface<Guidelines>{
     @Override
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteById(Long id) {
-        return null;
+        Optional<Guidelines> data = guideRepo.findById(id);
+
+        if (data.isPresent()) {
+            guideRepo.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Override
