@@ -5,8 +5,7 @@ import com.enviro.assessment.grad001.austinngobeni.repo.RecylingTipsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,7 @@ public class RecyclingController implements ControllerInterface<RecyclingTips>{
     private RecylingTipsRepo recyclingRepo;
 
     @Override
+    @PutMapping("/update/{id}")
     public ResponseEntity<RecyclingTips> updateById(Long id, RecyclingTips body) {
         Optional<RecyclingTips> existingData = recyclingRepo.findById(id);
 
@@ -33,6 +33,7 @@ public class RecyclingController implements ControllerInterface<RecyclingTips>{
     }
 
     @Override
+    @GetMapping("/get-data/{id}")
     public ResponseEntity<RecyclingTips> getDataById(Long id) {
         Optional<RecyclingTips> data = recyclingRepo.findById(id);
 
@@ -43,6 +44,7 @@ public class RecyclingController implements ControllerInterface<RecyclingTips>{
     }
 
     @Override
+    @DeleteMapping("/delete-data/{id}")
     public ResponseEntity<HttpStatus> deleteById(Long id) {
         Optional<RecyclingTips> data = recyclingRepo.findById(id);
 
@@ -54,6 +56,7 @@ public class RecyclingController implements ControllerInterface<RecyclingTips>{
     }
 
     @Override
+    @GetMapping("/getAllData")
     public ResponseEntity<List<RecyclingTips>> getAllData() {
         List<RecyclingTips> data = new ArrayList<>();
         recyclingRepo.findAll().forEach(data::add);
@@ -65,6 +68,7 @@ public class RecyclingController implements ControllerInterface<RecyclingTips>{
     }
 
     @Override
+    @PostMapping("/add")
     public ResponseEntity<RecyclingTips> addData(RecyclingTips requestBody) {
         RecyclingTips newData = recyclingRepo.save(requestBody);
         return ResponseEntity.ok(newData);
