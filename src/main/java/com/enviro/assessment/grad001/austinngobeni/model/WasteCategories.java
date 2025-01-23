@@ -10,7 +10,6 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 public class WasteCategories {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
