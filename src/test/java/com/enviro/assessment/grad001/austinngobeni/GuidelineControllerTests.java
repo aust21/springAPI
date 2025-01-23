@@ -48,10 +48,10 @@ class GuidelineControllerTests {
 
     @Test
     void testGetAllData() {
-        Guidelines tip1 = new Guidelines(1L, "Guide 1");
-        Guidelines tip2 = new Guidelines(2L, "Guide 2");
+        Guidelines guide1 = new Guidelines(1L, "Guide 1");
+        Guidelines guide2 = new Guidelines(2L, "Guide 2");
 
-        when(guideLineRepo.findAll()).thenReturn(Arrays.asList(tip1, tip2));
+        when(guideLineRepo.findAll()).thenReturn(Arrays.asList(guide1, guide2));
 
         ResponseEntity<List<Guidelines>> response = guideController.getAllData();
         assertEquals(2, response.getBody().size());
@@ -61,9 +61,9 @@ class GuidelineControllerTests {
 
     @Test
     void testGetDataByIdFound() {
-        Guidelines tip = new Guidelines(1L, "Guide 1");
+        Guidelines guide = new Guidelines(1L, "Guide 1");
 
-        when(guideLineRepo.findById(1L)).thenReturn(Optional.of(tip));
+        when(guideLineRepo.findById(1L)).thenReturn(Optional.of(guide));
 
         ResponseEntity<Guidelines> response = guideController.getDataById(1L);
         assertEquals(1L, response.getBody().getId());
@@ -80,8 +80,8 @@ class GuidelineControllerTests {
 
     @Test
     void testAdd() throws Exception {
-        Guidelines tip = new Guidelines(1L, "Reduce use recycle");
-        Mockito.when(guideLineRepo.save(any(Guidelines.class))).thenReturn(tip);
+        Guidelines guide = new Guidelines(1L, "Reduce use recycle");
+        Mockito.when(guideLineRepo.save(any(Guidelines.class))).thenReturn(guide);
 
         mockMvc.perform(post("/guide/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -92,10 +92,10 @@ class GuidelineControllerTests {
 
     @Test
     void testUpdateByIdFound() throws Exception {
-        Guidelines existingTip = new Guidelines(1L, "Old Guide");
-        Guidelines updatedTip = new Guidelines(1L, "Updated Guide");
-        Mockito.when(guideLineRepo.findById(1L)).thenReturn(Optional.of(existingTip));
-        Mockito.when(guideLineRepo.save(any(Guidelines.class))).thenReturn(updatedTip);
+        Guidelines existingGuide = new Guidelines(1L, "Old Guide");
+        Guidelines updatedGuide = new Guidelines(1L, "Updated Guide");
+        Mockito.when(guideLineRepo.findById(1L)).thenReturn(Optional.of(existingGuide));
+        Mockito.when(guideLineRepo.save(any(Guidelines.class))).thenReturn(updatedGuide);
 
         mockMvc.perform(put("/guide/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -105,8 +105,8 @@ class GuidelineControllerTests {
 
     @Test
     void testDeleteByIdFound() throws Exception {
-        Guidelines tip = new Guidelines(1L, "Guide to delete");
-        Mockito.when(guideLineRepo.findById(1L)).thenReturn(Optional.of(tip));
+        Guidelines guide = new Guidelines(1L, "Guide to delete");
+        Mockito.when(guideLineRepo.findById(1L)).thenReturn(Optional.of(guide));
         Mockito.doNothing().when(guideLineRepo).deleteById(1L);
 
         mockMvc.perform(delete("/guide/delete/1"))

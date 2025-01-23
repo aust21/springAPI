@@ -47,26 +47,26 @@ class RecyclingControllerTest {
 
     @Test
     void testGetAllData() {
-        RecyclingTips tip1 = new RecyclingTips(1L, "Tip 1");
-        RecyclingTips tip2 = new RecyclingTips(2L, "Tip 2");
+        RecyclingTips rec1 = new RecyclingTips(1L, "rec 1");
+        RecyclingTips rec2 = new RecyclingTips(2L, "rec 2");
 
-        when(recyclingRepo.findAll()).thenReturn(Arrays.asList(tip1, tip2));
+        when(recyclingRepo.findAll()).thenReturn(Arrays.asList(rec1, rec2));
 
         ResponseEntity<List<RecyclingTips>> response = recyclingController.getAllData();
         assertEquals(2, response.getBody().size());
-        assertEquals("Tip 1", response.getBody().get(0).getRecyclingTip());
-        assertEquals("Tip 2", response.getBody().get(1).getRecyclingTip());
+        assertEquals("rec 1", response.getBody().get(0).getRecyclingTip());
+        assertEquals("rec 2", response.getBody().get(1).getRecyclingTip());
     }
 
     @Test
     void testGetDataByIdFound() {
-        RecyclingTips tip = new RecyclingTips(1L, "Tip 1");
+        RecyclingTips rec = new RecyclingTips(1L, "rec 1");
 
-        when(recyclingRepo.findById(1L)).thenReturn(Optional.of(tip));
+        when(recyclingRepo.findById(1L)).thenReturn(Optional.of(rec));
 
         ResponseEntity<RecyclingTips> response = recyclingController.getDataById(1L);
         assertEquals(1L, response.getBody().getId());
-        assertEquals("Tip 1", response.getBody().getRecyclingTip());
+        assertEquals("rec 1", response.getBody().getRecyclingTip());
     }
 
     @Test
@@ -79,8 +79,8 @@ class RecyclingControllerTest {
 
     @Test
     void testAdd() throws Exception {
-        RecyclingTips tip = new RecyclingTips(1L, "Reduce use recycle");
-        Mockito.when(recyclingRepo.save(any(RecyclingTips.class))).thenReturn(tip);
+        RecyclingTips rec = new RecyclingTips(1L, "Reduce use recycle");
+        Mockito.when(recyclingRepo.save(any(RecyclingTips.class))).thenReturn(rec);
 
         mockMvc.perform(post("/rec/add")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -91,10 +91,10 @@ class RecyclingControllerTest {
 
     @Test
     void testUpdateByIdFound() throws Exception {
-        RecyclingTips existingTip = new RecyclingTips(1L, "Old Tip");
-        RecyclingTips updatedTip = new RecyclingTips(1L, "Updated Tip");
-        Mockito.when(recyclingRepo.findById(1L)).thenReturn(Optional.of(existingTip));
-        Mockito.when(recyclingRepo.save(any(RecyclingTips.class))).thenReturn(updatedTip);
+        RecyclingTips existingRec = new RecyclingTips(1L, "Old Tip");
+        RecyclingTips updatedRec = new RecyclingTips(1L, "Updated Tip");
+        Mockito.when(recyclingRepo.findById(1L)).thenReturn(Optional.of(existingRec));
+        Mockito.when(recyclingRepo.save(any(RecyclingTips.class))).thenReturn(updatedRec);
 
         mockMvc.perform(put("/rec/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -104,8 +104,8 @@ class RecyclingControllerTest {
 
     @Test
     void testDeleteByIdFound() throws Exception {
-        RecyclingTips tip = new RecyclingTips(1L, "Tip to delete");
-        Mockito.when(recyclingRepo.findById(1L)).thenReturn(Optional.of(tip));
+        RecyclingTips rec = new RecyclingTips(1L, "Tip to delete");
+        Mockito.when(recyclingRepo.findById(1L)).thenReturn(Optional.of(rec));
         Mockito.doNothing().when(recyclingRepo).deleteById(1L);
 
         mockMvc.perform(delete("/rec/delete/1"))
